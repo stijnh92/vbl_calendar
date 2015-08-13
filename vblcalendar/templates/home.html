@@ -1,0 +1,13 @@
+<html>
+  <head>
+
+  </head>
+
+  <body>
+      <h1>test</h1>
+
+      {% for code, name in regions.items %}
+        <a href="{% url 'region' code %}">{{ name }} </a> <br />
+      {% endfor %}
+  </body>
+</html>

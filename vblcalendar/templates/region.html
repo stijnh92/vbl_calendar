@@ -1,0 +1,13 @@
+<html>
+  <head>
+
+  </head>
+
+  <body>
+      <h1>test</h1>
+
+      {% for competition in competitions %}
+        <a href="{% url 'devision' competition.guid %}">{{ competition.naam }} </a> <br />
+      {% endfor %}
+  </body>
+</html>
