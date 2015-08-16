@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title_html %}
+    {{ object }}
+{% endblock %}
+
+{% block article_content %}
+
+<h1> {{ team }} </h1>
+
+<table class="table">
+    <tr>
+        <td>Date</td>
+        <td>Home</td>
+        <td>Away</td>
+        <td>Location</td>
+    </tr>
+
+    {% for game in games %}
+    <tr>
+        <td>
+            {{ game.datumString }}
+        </td>
+        <td>
+            {{ game.teamThuisNaam }}
+        </td>
+        <td>
+            {{ game.teamUitNaam }}
+        </td>
+        <td>
+            {{ game.accommOmschr }}
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
+{% endblock %}
