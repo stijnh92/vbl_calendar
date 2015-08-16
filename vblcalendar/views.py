@@ -17,8 +17,6 @@ def home(request):
             code: text
         })
 
-    print regions
-
     return render(request,
                   'home.html',
                   {
