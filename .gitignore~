@@ -1,0 +1,8 @@
+bin
+lib
+lib64
+*.pyc
+*.pyo
+.idea
+tournament7h/tournament/static/src/img/teams
+tournament7h/tournament/migrations
