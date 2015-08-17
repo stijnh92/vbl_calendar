@@ -9,11 +9,8 @@
       {{ name }}
 
       {% for team in teams %}
-        <h2>{{ team.naam }}</h2>
+        <a href="{% url 'team' team.guid %}">{{ team.naam }} </a> <br />
       {% endfor %}
 
-      {% for game in games %}
-        <h2>{{ game }}</h2>
-      {% endfor %}
   </body>
 </html>

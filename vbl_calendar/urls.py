@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^region/(?P<code>\w+)/$', views.region, name='region'),
     url(r'^devision/(?P<code>\w+)/$', views.devision, name='devision'),
+    url(r'^team/(?P<code>.+)/$', views.team, name='team'),
 ]

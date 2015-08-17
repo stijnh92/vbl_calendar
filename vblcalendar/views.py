@@ -51,11 +51,39 @@ def devision(request, code):
     response.raise_for_status()
     competitions = response.json()[0]
 
+    for d in competitions['wedstrijden']:
+        print d['teamThuisGUID'] == 'BVBL1379HSE  1'
+
+    games = (d for d in competitions['wedstrijden'] if d['teamThuisGUID'] == 'BVBL1379HSE  1')
+
     return render(request,
                   'devision.html',
                   {
                     'name': competitions['naam'],
-                    'games': competitions['wedstrijden'],
+                    'games': games,
                     'teams': competitions['teams']
+                  }
+                  )
+
+
+def team(request, code):
+
+    code = code.replace(' ', '+')
+    # Games
+    competitions_url = "http://vblcb.wisseq.eu/VBLCB_WebService/data/matchesbyteamguid?teamGuid=%s" % code
+
+    # request the URL and parse the JSON
+    response = requests.get(competitions_url)
+    response.raise_for_status()
+    games = response.json()[0]
+
+    team = games['naam']
+    games = sorted(games['wedstrijden'], key=lambda k: k['datSort'])
+
+    return render(request,
+                  'team.html',
+                  {
+                    'team': team,
+                    'games': games
                   }
                   )
