@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^region/(?P<code>\w+)/$', views.region, name='region'),
     url(r'^devision/(?P<code>\w+)/$', views.devision, name='devision'),
     url(r'^team/(?P<code>.+)/$', views.team, name='team'),
+    url(r'^team_ics_file/(?P<code>.+)/$', views.team_ics_file, name='team_ics_file'),
 ]
