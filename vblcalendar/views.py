@@ -12,12 +12,14 @@ import pytz
 def home(request):
     page = requests.get('http://vblweb.wisseq.eu/Home/Competities')
     tree = html.fromstring(page.text)
-    competitions = tree.xpath('//td/a')
-
+    competitions = tree.xpath('//ul[@id="tabs"]/li/a')
     regions = {}
+
     for _x in competitions:
-        code = _x.xpath('@href')[0].strip().rsplit('=', 1)[1]
+        temp_code = _x.xpath('@ng-click')[0]
+        code = temp_code[12:20]
         text = _x.xpath('text()')[0].strip()
+
         regions.update({
             code: text
         })
