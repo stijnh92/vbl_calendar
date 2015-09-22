@@ -127,9 +127,6 @@ def team_ics_file(request, code):
         utc_start = local_dt.astimezone(pytz.utc)
         utc_end = utc_start + datetime.timedelta(hours=2)
 
-        utc_start = utc_start.replace(tzinfo=None)
-        utc_end = utc_end.replace(tzinfo=None)
-
         start = vevent.add('dtstart')
         start.value = utc_start
 
