@@ -121,7 +121,7 @@ def team_ics_file(request, code):
         """
         time_string = '%s %s' % (game['datumString'], game['beginTijd'])
         time = datetime.datetime.strptime(time_string, '%d-%m-%Y %H.%M')
-        timezone.make_aware(time, pytz.timezone('Europe/Brussels'))
+        # timezone.make_aware(time, pytz.timezone('Europe/Brussels'))
 
         end_time = time + datetime.timedelta(hours=2)
 
