@@ -114,5 +114,7 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../vblcalendar/static/'),
 )
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../vblcalendar/static/src/img/')
 MEDIA_URL = '/img/'
