@@ -110,7 +110,8 @@ def team_ics_file(request, code):
     cal = vobject.iCalendar()
     cal.add('method').value = 'PUBLISH'  # IE/Outlook needs this
     event_list = []
-    utc = vobject.icalendar.utc
+    local_tz = pytz.timezone('Europe/Brussels')
+
     for game in games:
         # Add event detail
         vevent = cal.add('vevent')
@@ -120,13 +121,20 @@ def team_ics_file(request, code):
         beginTijd: 20.00
         """
         time_string = '%s %s' % (game['datumString'], game['beginTijd'])
-        time = datetime.datetime.strptime(time_string, '%d-%m-%Y %H.%M')
-        tz = pytz.timezone('Europe/Brussels')
 
-        end_time = time + datetime.timedelta(hours=2)
+        local_time = datetime.datetime.strptime(time_string, '%d-%m-%Y %H.%M')
+        local_dt = local_tz.localize(local_time, is_dst=None)
+        utc_start = local_dt.astimezone(pytz.utc)
+        utc_end = utc_start + datetime.timedelta(hours=2)
 
-        vevent.add('dtstart').value = time
-        vevent.add('dtend').value = end_time
+        start = vevent.add('dtstart')
+        start.value = utc_start
+
+        end = vevent.add('dtend')
+        end.value = utc_end
+
+        # vevent.add('dtstart').value = time
+        # vevent.add('dtend').value = end_time
         vevent.add('location').value = game['accommOmschr']
         vevent.add('description').value = '%s - %s\n%s' % (game['teamThuisNaam'], game['teamUitNaam'], game['uitslag'])
 
