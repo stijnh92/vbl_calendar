@@ -121,14 +121,14 @@ def team_ics_file(request, code):
         """
         time_string = '%s %s' % (game['datumString'], game['beginTijd'])
         time = datetime.datetime.strptime(time_string, '%d-%m-%Y %H.%M')
-        # timezone.make_aware(time, pytz.timezone('Europe/Brussels'))
+        tz = pytz.timezone('Europe/Brussels')
 
         end_time = time + datetime.timedelta(hours=2)
 
         vevent.add('dtstart').value = time
         vevent.add('dtend').value = end_time
         vevent.add('location').value = game['accommOmschr']
-        vevent.add('description').value = '%s - %s' % (game['teamThuisNaam'], game['teamUitNaam'])
+        vevent.add('description').value = '%s - %s\n%s' % (game['teamThuisNaam'], game['teamUitNaam'], game['uitslag'])
 
     icalstream = cal.serialize()
     response = HttpResponse(icalstream, content_type='text/calendar')
