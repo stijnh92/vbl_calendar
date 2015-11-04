@@ -74,7 +74,7 @@ def team(request, code):
 
     code = code.replace(' ', '+')
     # Games
-    competitions_url = "http://vblcb.wisseq.eu/VBLCB_WebService/data/matchesbyteamguid?teamGuid=%s" % code
+    competitions_url = "http://vblcb.wisseq.eu/VBLCB_WebService/data/TeamDetailByGuid?teamGuid=%s" % code
 
     # request the URL and parse the JSON
     response = requests.get(competitions_url)
