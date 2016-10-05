@@ -5,33 +5,34 @@
 
 {% block article_content %}
 
-<h1> {{ team }} </h1>
-
 <a href="{% url 'team_ics_file' team_code %}" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Download .ics file</a>
 
 <table class="table">
     <tr>
         <td>Date</td>
+        <td>Location</td>
         <td>Home</td>
         <td>Away</td>
-        <td>Location</td>
+        <td>Result</td>
     </tr>
 
     {% for game in games %}
     <tr>
         <td>
-            {{ game.datumString }}
+            {{ game.datumString }} {{game.beginTijd}}
         </td>
         <td>
-            {{ game.teamThuisNaam }}
+            {{ game.accNaam }}
         </td>
         <td>
-            {{ game.teamUitNaam }}
+            {{ game.tTNaam }}
         </td>
         <td>
-            {{ game.accommOmschr }}
+            {{ game.tUNaam }}
         </td>
-
+        <td>
+            {{ game.uitslag }}
+        </td>
     </tr>
     {% endfor %}
 </table>

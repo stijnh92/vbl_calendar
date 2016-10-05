@@ -74,20 +74,20 @@ def team(request, code):
 
     code = code.replace(' ', '+')
     # Games
-    competitions_url = "http://vblcb.wisseq.eu/VBLCB_WebService/data/matchesbyteamguid?teamGuid=%s" % code
+    competitions_url = "http://vblcb.wisseq.eu/VBLCB_WebService/data/TeamMatchesByGuid?teamGuid=%s" % code
 
     # request the URL and parse the JSON
     response = requests.get(competitions_url)
     response.raise_for_status()
-    games = response.json()[0]
+    games = response.json()
 
-    team = games['naam']
-    games = sorted(games['wedstrijden'], key=lambda k: k['datSort'])
+    print games
+
+    games = sorted(games, key=lambda k: k['jsDTCode'])
 
     return render(request,
                   'team.html',
                   {
-                    'team': team,
                     'games': games,
                     'team_code': code
                   }
@@ -97,15 +97,14 @@ def team(request, code):
 def team_ics_file(request, code):
     code = code.replace(' ', '+')
     # Games
-    competitions_url = "http://vblcb.wisseq.eu/VBLCB_WebService/data/matchesbyteamguid?teamGuid=%s" % code
+    competitions_url = "http://vblcb.wisseq.eu/VBLCB_WebService/data/TeamMatchesByGuid?teamGuid=%s" % code
 
     # request the URL and parse the JSON
     response = requests.get(competitions_url)
     response.raise_for_status()
-    games = response.json()[0]
+    games = response.json()
 
-    team = games['naam']
-    games = sorted(games['wedstrijden'], key=lambda k: k['datSort'])
+    games = sorted(games, key=lambda k: k['jsDTCode'])
 
     cal = vobject.iCalendar()
     cal.add('method').value = 'PUBLISH'  # IE/Outlook needs this
@@ -115,7 +114,7 @@ def team_ics_file(request, code):
     for game in games:
         # Add event detail
         vevent = cal.add('vevent')
-        vevent.add('summary').value = '%s - %s' % (game['teamThuisNaam'], game['teamUitNaam'])
+        vevent.add('summary').value = '%s - %s' % (game['tTNaam'], game['tUNaam'])
         """
         datumString: 15-08-2015
         beginTijd: 20.00
@@ -135,12 +134,12 @@ def team_ics_file(request, code):
 
         # vevent.add('dtstart').value = time
         # vevent.add('dtend').value = end_time
-        vevent.add('location').value = game['accommOmschr']
-        vevent.add('description').value = '%s - %s\n%s' % (game['teamThuisNaam'], game['teamUitNaam'], game['uitslag'])
+        vevent.add('location').value = game['accNaam']
+        vevent.add('description').value = '%s - %s\n%s' % (game['tTNaam'], game['tUNaam'], game['uitslag'])
 
     icalstream = cal.serialize()
     response = HttpResponse(icalstream, content_type='text/calendar')
-    response['Filename'] = '%s.ics' % team  # IE needs this
-    response['Content-Disposition'] = 'attachment; filename=%s.ics' % team
+    response['Filename'] = '%s.ics' % code  # IE needs this
+    response['Content-Disposition'] = 'attachment; filename=%s.ics' % code
 
     return response
