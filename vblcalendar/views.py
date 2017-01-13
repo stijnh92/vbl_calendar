@@ -1,11 +1,11 @@
 from django.shortcuts import render
 import requests
-from lxml import html, etree
+from lxml import html
 import vobject
 import datetime
 from django.http import HttpResponse
-from django.utils import timezone
 import pytz
+from ast import literal_eval
 
 
 # Create your views here.
@@ -17,7 +17,10 @@ def home(request):
 
     for _x in competitions:
         temp_code = _x.xpath('@ng-click')[0]
-        code = temp_code[12:20]
+        # example temp_code: "loadPoules('http://vblCB.wisseq.eu/VBLCB_WebService/data', 'BVBL9180')"
+        # replace loadPoules and cast result to tuple
+        temp_code = literal_eval(temp_code.replace('loadPoules', ''))
+        code = temp_code[1]
         text = _x.xpath('text()')[0].strip()
 
         regions.update({
@@ -58,13 +61,13 @@ def devision(request, code):
     response.raise_for_status()
     competitions = response.json()[0]
 
-    games = (d for d in competitions['wedstrijden'] if d['teamThuisGUID'] == 'BVBL1379HSE  1')
+    # games = (d for d in competitions['wedstrijden'] if d['teamThuisGUID'] == 'BVBL1379HSE  1')
 
     return render(request,
                   'devision.html',
                   {
                     'name': competitions['naam'],
-                    'games': games,
+                    # 'games': games,
                     'teams': competitions['teams']
                   }
                   )
