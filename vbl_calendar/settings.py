@@ -125,3 +125,5 @@ STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
     (os.path.join(BASE_DIR, 'vblcalendar', 'static')),
 )
+
+ALLOWED_HOSTS = [".herokuapp.com"]
