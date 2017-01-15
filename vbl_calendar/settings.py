@@ -105,25 +105,14 @@ ROOT_URLCONF = 'vbl_calendar.urls'
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, '../vblcalendar/templates'),
-    (PROJECT_ROOT + '/templates'),
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
 )
 
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, '../vblcalendar/static/'),
-# )
-
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../vblcalendar/static/src/img/')
 MEDIA_URL = '/img/'
-
-
-STATIC_ROOT = 'staticfiles'
-
-STATICFILES_DIRS = (
-    (os.path.join(BASE_DIR, 'vblcalendar', 'static')),
-)
 
 ALLOWED_HOSTS = [".herokuapp.com"]
