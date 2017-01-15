@@ -124,7 +124,10 @@ def team_ics_file(request, code):
         """
         time_string = '%s %s' % (game['datumString'], game['beginTijd'])
 
-        local_time = datetime.datetime.strptime(time_string, '%d-%m-%Y %H.%M')
+        try:
+            local_time = datetime.datetime.strptime(time_string, '%d-%m-%Y %H.%M')
+        except:
+            time_string += '12.00'
         local_dt = local_tz.localize(local_time, is_dst=None)
         utc_start = local_dt.astimezone(pytz.utc)
         utc_end = utc_start + datetime.timedelta(hours=2)
