@@ -5,7 +5,13 @@
 
 {% block article_content %}
 
-<a href="{% url 'team_ics_file' team_code %}" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Download .ics file</a>
+<a href="{% url 'team_ics_file' team_code %}" class="btn btn-primary">
+    <i class="fa fa-floppy-o"></i> Download .ics file
+</a>
+
+<a href="#" calendar_url="{{ request.META.HTTP_HOST }}{% url 'team_ics_file' team_code %}" id="copy_calendar_url" class="btn btn-primary">
+    <i class="fa fa-clipboard"></i> Copy Calendar URL
+</a>
 
 <table class="table">
     <tr>
@@ -36,8 +42,4 @@
     </tr>
     {% endfor %}
 </table>
-
-
-
-
 {% endblock %}
