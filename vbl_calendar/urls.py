@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from vblcalendar import views
+from vbl_calendar import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -24,4 +25,5 @@ urlpatterns = [
     url(r'^devision/(?P<code>\w+)/$', views.devision, name='devision'),
     url(r'^team/(?P<code>.+)/$', views.team, name='team'),
     url(r'^team_ics_file/(?P<code>.+)/$', views.team_ics_file, name='team_ics_file'),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 ]

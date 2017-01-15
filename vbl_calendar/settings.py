@@ -110,11 +110,18 @@ TEMPLATE_DIRS = (
     (PROJECT_ROOT + '/templates'),
 )
 
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, '../vblcalendar/static/'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, '../vblcalendar/static/'),
+# )
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../vblcalendar/static/src/img/')
 MEDIA_URL = '/img/'
+
+
+STATIC_ROOT = 'staticfiles'
+
+STATICFILES_DIRS = (
+    (os.path.join(BASE_DIR, 'vblcalendar', 'static')),
+)
